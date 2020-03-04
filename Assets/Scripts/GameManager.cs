@@ -19,9 +19,9 @@ namespace Assets
         [UsedImplicitly]
         public void Start()
         {
-            Terrain.terrainData.SetHeights(
-                xBase: 0, yBase:0,
-                generator.BuildHeightMap(Terrain.terrainData.heightmapResolution, Terrain.terrainData.heightmapResolution));
+            var world = generator.Generate(513, 513);
+            Terrain.terrainData.SetHeights(0, 0, world.HeightMap);
+            Terrain.terrainData.SetAlphamaps(0, 0, world.SplatMap);
         }
 
     }

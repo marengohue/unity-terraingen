@@ -1,10 +1,24 @@
-﻿namespace Assets.Impl
+﻿using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts;
+
+namespace Assets.Impl
 {
-    class TerrainGenerator : ITerrainGenerator
+    /// <inheritdoc cref="ITerrainGenerator"/>
+    public class TerrainGenerator : ITerrainGenerator
     {
-        public float[,] BuildHeightMap(int xSize, int ySize)
+        private readonly IList<IDecorator> decorators = new List<IDecorator>();
+
+        public World Generate(int xSize, int ySize)
         {
-            return new float[ySize, xSize];
+            var world = new World(xSize, ySize);
+            return decorators
+                .Aggregate(world, (currentWorld, nextDecorator) => nextDecorator.Generate(currentWorld));
+        }
+
+        public void RegisterDecorator(IDecorator decorator)
+        {
+            decorators.Add(decorator);
         }
     }
 }
