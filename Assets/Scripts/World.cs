@@ -23,7 +23,7 @@ namespace Assets
             Y = y;
             HeightMap = new float[x, y];
             SplatMap = new float[x - 1, y - 1, TextureCount];
-            Trees = new List<Vector2>();
+            Trees = new List<Vector3>();
             metadata = new Dictionary<string, object>();
         }
 
@@ -31,7 +31,7 @@ namespace Assets
 
         public float[,,] SplatMap { get; set; }
 
-        public IEnumerable<Vector2> Trees { get; set; }
+        public IList<Vector3> Trees { get; set; }
 
         public TValue GetMetaValue<TValue>(string name)
             where TValue : class
