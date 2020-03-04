@@ -1,4 +1,5 @@
 ﻿using Assets.Impl;
+using Assets.Scripts.Impl;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -13,7 +14,10 @@ namespace Assets
         [UsedImplicitly]
         public void Awake()
         {
-            generator = new TerrainGenerator();
+            generator = new TerrainGenerator()
+                .RegisterDecorator(new BiomeDecorator())
+                .RegisterDecorator(new HeightmapDecorator(noiseScale: 5, biomePower: 2.3f))
+                .RegisterDecorator(new BiomeSplatMapDecorator());
         }
 
         [UsedImplicitly]
@@ -23,7 +27,6 @@ namespace Assets
             Terrain.terrainData.SetHeights(0, 0, world.HeightMap);
             Terrain.terrainData.SetAlphamaps(0, 0, world.SplatMap);
         }
-
     }
 }
 

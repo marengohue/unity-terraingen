@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts;
 
@@ -9,16 +10,18 @@ namespace Assets.Impl
     {
         private readonly IList<IDecorator> decorators = new List<IDecorator>();
 
-        public World Generate(int xSize, int ySize)
+        public World Generate(int xSize, int ySize, int? seed)
         {
-            var world = new World(xSize, ySize);
+            var worldRandom = seed.HasValue ? new Random(seed.Value) : new Random();
+            var world = new World(xSize, ySize, worldRandom);
             return decorators
                 .Aggregate(world, (currentWorld, nextDecorator) => nextDecorator.Generate(currentWorld));
         }
 
-        public void RegisterDecorator(IDecorator decorator)
+        public ITerrainGenerator RegisterDecorator(IDecorator decorator)
         {
             decorators.Add(decorator);
+            return this;
         }
     }
 }

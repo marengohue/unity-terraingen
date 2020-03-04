@@ -1,23 +1,22 @@
-﻿using System.Collections.Generic;
-using Assets.Scripts;
-using UnityEngine;
+﻿using Assets.Scripts;
 
 namespace Assets
 {
-    interface ITerrainGenerator
+    public interface ITerrainGenerator
     {
         /// <summary>
         /// Builds a the terrain data
         /// </summary>
         /// <param name="xSize"></param>
         /// <param name="ySize"></param>
+        /// <param name="seed"></param>
         /// <returns></returns>
-        World Generate(int xSize, int ySize);
+        World Generate(int xSize, int ySize, int? seed = null);
 
         /// <summary>
         /// Registers the decorator in the generation pipeline
         /// </summary>
         /// <param name="decorator"></param>
-        void RegisterDecorator(IDecorator decorator);
+        ITerrainGenerator RegisterDecorator(IDecorator decorator);
     }
 }
