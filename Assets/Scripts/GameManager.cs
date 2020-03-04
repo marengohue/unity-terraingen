@@ -21,7 +21,7 @@ namespace Assets
         {
             Terrain.terrainData.SetHeights(
                 xBase: 0, yBase:0,
-                generator.BuildHeightMap());
+                generator.BuildHeightMap(Terrain.terrainData.heightmapResolution, Terrain.terrainData.heightmapResolution));
         }
 
     }

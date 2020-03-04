@@ -2,9 +2,9 @@
 {
     class TerrainGenerator : ITerrainGenerator
     {
-        public float[,] BuildHeightMap()
+        public float[,] BuildHeightMap(int xSize, int ySize)
         {
-            throw new System.NotImplementedException();
+            return new float[ySize, xSize];
         }
     }
 }

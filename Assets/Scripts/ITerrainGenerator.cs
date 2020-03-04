@@ -1,7 +1,9 @@
-﻿namespace Assets
+﻿using System;
+
+namespace Assets
 {
     interface ITerrainGenerator
     {
-        float[,] BuildHeightMap();
+        float[,] BuildHeightMap(int xSize, int ySize);
     }
 }
