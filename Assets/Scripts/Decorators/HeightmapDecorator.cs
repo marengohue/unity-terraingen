@@ -35,10 +35,10 @@ namespace Itransition.TerrainGen.Decorators
 
         private float GetHeightForBiome(World world, int x, int y, float xOrigin, float yOrigin)
         {
-            var biomeValue = world.GetMetaValue<float[,]>(Constants.BiomesHeightmapMetaKey)[x, y];
+            var biomeValue = world.GetMetaValue<float[,]>(Keys.BiomesHeightmapMetaKey)[x, y];
             var noiseVal = Mathf.PerlinNoise(
-                xOrigin + 1f * x / world.X * scale,
-                yOrigin + 1f * y / world.Y * scale
+                xOrigin + 1f * x / world.SizeX * scale,
+                yOrigin + 1f * y / world.SizeY * scale
             );
             return Mathf.Pow(biomeValue, biomePower) * noiseVal;
         }

@@ -7,7 +7,7 @@ namespace Itransition.TerrainGen.Decorators
     {
         public World Generate(World world)
         {
-            var biomeMap = world.GetMetaValue<float[,]>(Constants.BiomesHeightmapMetaKey);
+            var biomeMap = world.GetMetaValue<float[,]>(Keys.BiomesHeightmapMetaKey);
             BiomeIndex.AllBiomes.ForEach(biome => { ApplyBiomeAndSaveColormap(world, biomeMap, biome); });
             return world;
         }
@@ -25,7 +25,7 @@ namespace Itransition.TerrainGen.Decorators
                 world.SplatMap[x, y, biome.SplatMapIndex] = color;
                 biomeColorMap[x, y] = color;
             });
-            world.SetMetaValue(Constants.GetBiomeColorMetaKey(biome), biomeColorMap);
+            world.SetMetaValue(Keys.GetBiomeColorMetaKey(biome), biomeColorMap);
         }
 
         private float BlendOntoRange(float value, float min, float max, float tolerance)

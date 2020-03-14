@@ -5,7 +5,7 @@ namespace Itransition.TerrainGen
     /// <summary>
     /// Metadata key constants
     /// </summary>
-    public class Constants
+    public class Keys
     {
         public const string BiomesMetaKey = "biomeMap";
 
