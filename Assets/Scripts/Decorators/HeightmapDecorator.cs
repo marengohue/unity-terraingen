@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Itransition.TerrainGen.Extensions;
+using UnityEngine;
 
-namespace Assets.Scripts.Impl
+namespace Itransition.TerrainGen.Decorators
 {
     class HeightmapDecorator : IDecorator
     {
@@ -26,13 +27,10 @@ namespace Assets.Scripts.Impl
 
         private void SetHeights(World world, float xOrigin, float yOrigin)
         {
-            for (var x = 0; x < world.X; x++)
+            world.ForEachTile((x, y) =>
             {
-                for (int y = 0; y < world.Y; y++)
-                {
-                    world.HeightMap[x, y] = GetHeightForBiome(world, x, y, xOrigin, yOrigin);
-                }
-            }
+                world.HeightMap[x, y] = GetHeightForBiome(world, x, y, xOrigin, yOrigin);
+            });
         }
 
         private float GetHeightForBiome(World world, int x, int y, float xOrigin, float yOrigin)

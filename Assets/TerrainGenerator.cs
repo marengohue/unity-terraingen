@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Itransition.TerrainGen;
-using Itransition.TerrainGen.Decorators;
 
-namespace Assets.Impl
+namespace Itransition.TerrainGen.Decorators
 {
     /// <inheritdoc cref="ITerrainGenerator"/>
     public class TerrainGenerator : ITerrainGenerator

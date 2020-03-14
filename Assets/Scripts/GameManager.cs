@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Assets.Impl;
-using Assets.Scripts.Impl;
+using Assets;
+using Itransition.TerrainGen.Decorators;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Assets
+namespace Itransition.TerrainGen
 {
     public class GameManager : MonoBehaviour
     {
@@ -18,7 +18,7 @@ namespace Assets
             generator = new TerrainGenerator()
                 .RegisterDecorator(new BiomeDecorator())
                 .RegisterDecorator(new HeightmapDecorator(noiseScale: 5, biomePower: 2.3f))
-                .RegisterDecorator(new BiomeSplatMapDecorator())
+                .RegisterDecorator(new BiomeSplatMapDecorator()) 
                 .RegisterDecorator(new TreePlacerDecorator(worldHeight: 600));
         }
 

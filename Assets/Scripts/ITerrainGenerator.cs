@@ -1,6 +1,6 @@
-﻿using Assets.Scripts;
+﻿using Itransition.TerrainGen.Decorators;
 
-namespace Assets
+namespace Itransition.TerrainGen
 {
     public interface ITerrainGenerator
     {

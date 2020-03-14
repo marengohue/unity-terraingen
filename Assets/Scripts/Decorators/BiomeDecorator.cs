@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using Itransition.TerrainGen.Extensions;
+using UnityEngine;
 
-namespace Assets.Scripts.Impl
+namespace Itransition.TerrainGen.Decorators
 {
     class BiomeDecorator : IDecorator
     {
@@ -14,15 +15,12 @@ namespace Assets.Scripts.Impl
             var biomeMap = new EnumBiome[world.X, world.Y];
             var biomeHightmap = new float[world.X, world.Y];
 
-            for (var x = 0; x < world.X; x++)
+            world.ForEachTile((x, y) =>
             {
-                for (int y = 0; y < world.Y; y++)
-                { 
-                    var (biome, biomeValue) = GetBiomeFromPoint(world, xOrigin, x, yOrigin, y);
-                    biomeMap[x, y] = biome;
-                    biomeHightmap[x, y] = biomeValue;
-                }
-            }
+                var (biome, biomeValue) = GetBiomeFromPoint(world, xOrigin, x, yOrigin, y);
+                biomeMap[x, y] = biome;
+                biomeHightmap[x, y] = biomeValue;
+            });
 
             world.SetMetaValue(Constants.BiomesMetaKey, biomeMap);
             world.SetMetaValue(Constants.BiomesHeightmapMetaKey, biomeHightmap);

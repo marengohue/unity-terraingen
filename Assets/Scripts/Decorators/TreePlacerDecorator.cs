@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Impl
+namespace Itransition.TerrainGen.Decorators
 {
     class TreePlacerDecorator : IDecorator
     {
