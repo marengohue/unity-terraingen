@@ -1,4 +1,6 @@
-﻿namespace Itransition.TerrainGen
+﻿using Itransition.TerrainGen.Biomes;
+
+namespace Itransition.TerrainGen
 {
     /// <summary>
     /// Metadata key constants
@@ -9,6 +11,9 @@
 
         public const string BiomesHeightmapMetaKey = "biomesHightmap";
 
-        public const string ForestColorMetaKey = "forestColor";
+        public static string GetBiomeColorMetaKey(Biome b)
+        {
+            return $"biomeColor_{b.Name}";
+        }
     }
 }

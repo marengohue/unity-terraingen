@@ -1,4 +1,5 @@
-﻿using Itransition.TerrainGen.Extensions;
+﻿using Itransition.TerrainGen.Biomes;
+using Itransition.TerrainGen.Extensions;
 
 namespace Itransition.TerrainGen.Decorators
 {
@@ -7,19 +8,24 @@ namespace Itransition.TerrainGen.Decorators
         public World Generate(World world)
         {
             var biomeMap = world.GetMetaValue<float[,]>(Constants.BiomesHeightmapMetaKey);
-            var forestColors = new float[world.X, world.Y];
+            BiomeIndex.AllBiomes.ForEach(biome => { ApplyBiomeAndSaveColormap(world, biomeMap, biome); });
+            return world;
+        }
 
+        private void ApplyBiomeAndSaveColormap(World world, float[,] biomeMap, Biome biome)
+        {
+            var biomeColorMap = new float[world.SplatX, world.SplatY];
             world.ForEachSplatTile((x, y) =>
             {
-                world.SplatMap[x, y, (int)EnumBiome.Mountain] = BlendOntoRange(biomeMap[x, y], 0.6f, 1f, 0.1f);
-                var forestColor = BlendOntoRange(biomeMap[x, y], 0.3f, 0.6f, 0.15f);
-                world.SplatMap[x, y, (int)EnumBiome.Forest] = forestColor;
-                forestColors[x, y] = forestColor;
-                world.SplatMap[x, y, (int)EnumBiome.Desert] = BlendOntoRange(biomeMap[x, y], 0f, 0.4f, 0.1f);
+                var color = BlendOntoRange(
+                    biomeMap[x, y],
+                    biome.HeightMin,
+                    biome.HeightMax,
+                    biome.HeightSplatTolerance);
+                world.SplatMap[x, y, biome.SplatMapIndex] = color;
+                biomeColorMap[x, y] = color;
             });
-
-            world.SetMetaValue(Constants.ForestColorMetaKey, forestColors);
-            return world;
+            world.SetMetaValue(Constants.GetBiomeColorMetaKey(biome), biomeColorMap);
         }
 
         private float BlendOntoRange(float value, float min, float max, float tolerance)

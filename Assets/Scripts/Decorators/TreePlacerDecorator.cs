@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Itransition.TerrainGen.Biomes;
+using Itransition.TerrainGen.Extensions;
+using UnityEngine;
 
 namespace Itransition.TerrainGen.Decorators
 {
@@ -13,19 +15,14 @@ namespace Itransition.TerrainGen.Decorators
 
         public World Generate(World world)
         {
-            var forestColors = world.GetMetaValue<float[,]>(Constants.ForestColorMetaKey);
-
-            for (var x = 0; x < world.X; x++)
+            var forestColors = world.GetMetaValue<float[,]>(Constants.GetBiomeColorMetaKey(BiomeIndex.Forest));
+            world.ForEachSplatTile((x, y) =>
             {
-                for (int y = 0; y < world.Y; y++)
+                if (world.Random.NextDouble() < Mathf.Pow(forestColors[x, y], 3f) * 0.07f)
                 {
-                    if (world.Random.NextDouble() < Mathf.Pow(forestColors[x, y], 3f) * 0.07f)
-                    {
-                        world.Trees.Add(new Vector3(1f * y / world.Y, world.HeightMap[x, y], 1f * x / world.X));
-                    }
+                    world.Trees.Add(new Vector3(1f * y / world.Y, world.HeightMap[x, y], 1f * x / world.X));
                 }
-            }
-
+            });
             return world;
         }
     }

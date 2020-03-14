@@ -27,9 +27,9 @@ namespace Itransition.TerrainGen.Extensions
         /// <param name="callback">callback to exec</param>
         public static void ForEachSplatTile(this World world, Action<int, int> callback)
         {
-            for (var x = 0; x < world.X - 1; x++)
+            for (var x = 0; x < world.SplatX - 1; x++)
             {
-                for (int y = 0; y < world.Y - 1; y++)
+                for (int y = 0; y < world.SplatY - 1; y++)
                 {
                     callback(x, y);
                 }

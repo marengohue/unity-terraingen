@@ -16,6 +16,10 @@ namespace Itransition.TerrainGen
 
         public int Y { get; }
 
+        public int SplatX => X - 1;
+
+        public int SplatY => Y - 1;
+
         public World(int x, int y, Random random)
         {
             Random = random;
